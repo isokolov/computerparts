@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="itemList">
+    <table class="table table-bordered table-hover horizontal-align">
+        <thead>
+        <tr>
+            <th style="width: 55%">Наименование</th>
+            <th class="dropdown" style="width: 20%">Необходимость
+                <i class="fa fa-check-squaree"></i>
+
+                <ul class="nav navbar-nav">
+                </ul>
+            </th>
+            <th style="width: 10%">Количество</th>
+            <th style="width: 5%">Редактировать</th>
+            <th style="width: 5%">Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:if="${#lists.isEmpty(items)}">
+            <td>None. Please, <i th:if="${counter} != 0"><a th:href="@{'/index'}">return</a></i><i th:if="${counter} == 0"><a th:href="@{'/new'}">add parts</a></i>.</td>
+        </tr>
+
+
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}">Name</td>
+            <td style="text-align: center">
+                <span th:if="${item.required} == true" style="text-align: center;font-size:15p; background-color:#3DD1E1">Да</span>
+                <span th:if="${item.required} == false">Нет</span>
+            </td>
+            <td th:text="${item.amount}" style="text-align: center">Amount</td>
+            <td style="text-align: center"><a th:href="@{'/edit/{id}'(id=${item.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <td style="text-align: center"><a th:href="@{'/delete/{id}'(id=${item.id})}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+        </tr>
+        <tr th:if="${counter} == 0 and !${#lists.isEmpty(items)}">
+            <td style="background-color: transparent; border-bottom-color: transparent; border-left-color: transparent "></td>
+            <td style="text-align: center; font-size:15px; background-color:#3DD1E1">Можно собрать</td>
+            <td th:text="${amount}" style="text-align: center;font-size:15px; background-color:#3DD1E1">amount</td>
+            <td style="text-align: center;font-size:15p; background-color:#3DD1E1">компьютеров</td>
+
+        </tr>
+
+        <tr th:if="${counter} == 3 and !${#lists.isEmpty(item)}">
+            <td><i><a th:href="@{'/index'}">Вернуться</a></i></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <table class="pagination-sm" align="right" th:unless="${totalElements} == 0">
+        <tr>
+
+            <td><a  href="#" class="navbar-brand" th:href="@{'/?page={page}'(page=0)}" style="font-size:16px"><b>1</b></a>
+            </td>
+
+            <td style="text-align:center" th:if="${number} == 0">
+                <a class="navbar-brand" th:href="@{'/?page={page}'(page=0)}" style="font-size:16px"><b>&laquo;</b></a>
+            </td>
+
+            <td style="text-align:center" th:unless="${number} == 0">
+                <a class="navbar-brand" th:href="@{'/?page={page}'(page=${number}-1)}" style="font-size:16px"><b>&laquo;</b></a>
+            </td>
+            <td class="nav navbar-nav" style="text-align:center;background-color:#337ab7">
+                <a class="navbar-brand" th:href="@{'/?page={page}'(page=${number})}" style="font-size:16px; color:#ffffff">
+                    <b th:text="${number}+1">Number</b>
+                    <b>/</b>
+                    <b th:text="${totalPages}">Number</b>
+                </a>
+            </td>
+
+            <td style="text-align:center" th:if="${number} == ${totalPages}-1">
+                <a class="navbar-brand" th:href="@{'/?page={page}'(page=${number})}" style="font-size:16px"><b>&raquo;</b></a>
+            </td>
+
+            <td style="text-align:center" th:unless="${number} == ${totalPages}-1">
+                <a class="navbar-brand" th:href="@{'/?page={page}'(page=${number}+1)}" style="font-size:16px" ><b>&raquo;</b></a>
+            </td>
+
+            <td>
+                <a class="navbar-brand" th:href="@{'/?page={page}'(page=${totalPages}-1)}" style="font-size:16px">
+                    <b th:text="${totalPages}">Number</b>
+                </a></td>
+
+        </tr>
+    </table>
+
+</div>
+</html>

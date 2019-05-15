@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="eng"
+             xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+    <nav class="navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/index}"><!--Parts-list-->Список комплектующих</a>
+                <ul class="nav navbar-nav">
+                    <li><a href="#" th:href="@{/new}"><!--Add-->Добавить</a></li>
+                    <li><a href="#" th:href="@{/search}"><!--Search-->Поиск</a></li>
+                    <li style="width: 100px" ></li>
+                    <li><a href="#" style="width: 250px"></a></li>
+                    <li><a href="#" style="color: #00FF00">JavaRush Internship</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</html>
